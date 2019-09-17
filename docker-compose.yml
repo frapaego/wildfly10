@@ -1,0 +1,26 @@
+version: '2'
+services:
+ wildfly:
+    build: .
+    image: wildfly10jdk8
+    container_name: wildfly10ssl
+    ports:
+      - '8080:8080'
+      - '8443:8443'
+      - '8787:8787'
+      - '9990:9990'
+    volumes:
+      - '~/docker/volumes/wildfly/10.1.0.Final/log:/opt/jboss/wildfly/standalone/log'
+      - '~/docker/volumes/wildfly/10.1.0.Final/deployments:/opt/jboss/wildfly/standalone/deployments'
+    networks:
+     net_docker:
+      ipv4_address: 11.5.5.5
+networks:
+ net_docker:
+  driver: bridge
+  ipam:
+   driver: default
+   config:
+    - subnet: 11.5.5.0/24
+      gateway: 11.5.5.1
+    
